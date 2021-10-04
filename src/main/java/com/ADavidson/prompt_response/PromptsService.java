@@ -2,6 +2,8 @@ package com.ADavidson.prompt_response;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PromptsService {
 
@@ -11,7 +13,7 @@ public class PromptsService {
         this.promptsRepo = promptsRepo;
     }
 
-    public PromptList getPrompts() {
-        return new PromptList(promptsRepo.findAll());
+    public List<Prompt> getPrompts() {
+        return promptsRepo.findAll();
     }
 }

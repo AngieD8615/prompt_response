@@ -30,7 +30,7 @@ public class PromptsControllerTests {
         List<Prompt> promptList = new ArrayList<>();
         promptList.add(new Prompt(1, "hello world"));
         promptList.add(new Prompt(2, "hello world... again"));
-        when(promptsService.getPrompts()).thenReturn(new PromptList(promptList));
+        when(promptsService.getPrompts()).thenReturn(promptList);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/prompts"))
                 .andExpect(MockMvcResultMatchers.status().isOk())

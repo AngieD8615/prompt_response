@@ -3,6 +3,8 @@ package com.ADavidson.prompt_response;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class PromptsController {
     PromptsService promptsService;
@@ -11,7 +13,7 @@ public class PromptsController {
     }
 
     @GetMapping("/api/prompts")
-    public PromptList getPrompts() {
+    public List<Prompt> getPrompts() {
         return promptsService.getPrompts();
     }
 

@@ -6,6 +6,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
@@ -22,7 +24,7 @@ class PromptsServiceTests {
 
     @Test
     void getPrompts () {
-        PromptList promptList = promptsService.getPrompts();
+        List<Prompt> promptList = promptsService.getPrompts();
         assertThat(promptList).isNotNull();
     }
 }
