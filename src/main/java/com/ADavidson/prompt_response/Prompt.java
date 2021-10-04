@@ -1,20 +1,30 @@
 package com.ADavidson.prompt_response;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "prompts")
 public class Prompt {
-    private int ID;
+
+    @Id
+    private int id;
     private String prompt;
 
     public Prompt(int id, String prompt) {
-        this.ID = id;
+        this.id = id;
         this.prompt = prompt;
     }
 
-    public int getID() {
-        return ID;
+    public Prompt() {}
+
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int ID) {
+        this.id = ID;
     }
 
     public String getPrompt() {
