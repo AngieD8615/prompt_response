@@ -23,7 +23,6 @@ public class PromptsControllerTests {
     @MockBean
     PromptsService promptsService;
 
-// GET /api/prompts -> returns a list of the prompts
     @Test
     void getPrompts_returnsListOfPrompts() throws Exception {
 
@@ -36,4 +35,5 @@ public class PromptsControllerTests {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.prompts", hasSize(2)));
     }
+    
 }
