@@ -1,5 +1,6 @@
 package com.ADavidson.prompt_response;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,6 +13,7 @@ public class PromptsController {
         this.promptsService = promptsService;
     }
 
+    @CrossOrigin(origins = "http://localhost:3000/")
     @GetMapping("/api/prompts")
     public List<Prompt> getPrompts() {
         return promptsService.getPrompts();
