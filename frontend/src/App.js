@@ -2,11 +2,10 @@ import './App.css';
 import Prompt from './Prompt'
 import {useEffect, useState} from "react";
 
-const axios = require('axios')
-
-function App() {
+function App({axios}) {
     const [prompts, setPrompts] = useState([])
     const [isLoading, setIsLoading] = useState(true)
+    const [loadingFailed, setLoadingFailed] = useState(false)
     const curPrompt = 0;
 
     const getPrompts = () => {
@@ -17,6 +16,9 @@ function App() {
             .then(() => {
                 setIsLoading(false)
             })
+            .catch(() => {
+                setLoadingFailed(true)
+            })
     }
 
     useEffect(() => {
@@ -25,9 +27,19 @@ function App() {
         }
     })
 
+    const renderData = () => {
+        if (loadingFailed) {
+            return <p>Failed to load data</p>
+        } else if (isLoading) {
+            return <p>Loading...</p>
+        } else {
+            return <Prompt id={curPrompt} text={prompts[curPrompt].prompt} />
+        }
+    }
+
     return (
         <div>
-            {isLoading ? null : prompts[curPrompt].prompt}
+            {renderData()}
         </div>
     );
 }
