@@ -22,6 +22,5 @@ public class PromptsService {
 
     public void saveResponse(UserResponse response) {
         responseRepo.save(response);
-
     }
 }

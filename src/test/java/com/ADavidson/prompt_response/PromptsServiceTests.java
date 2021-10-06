@@ -32,8 +32,6 @@ class PromptsServiceTests {
 
     @Test
     void getPrompts () {
-        // Question: Is this test robust enough?
-        // It feels lacking. What else can I assert?
         List<Prompt> returnedPromptList = new ArrayList<>();
         returnedPromptList.add(new Prompt(1,"this is a prompts"));
         returnedPromptList.add(new Prompt(2,"this is another prompts"));
