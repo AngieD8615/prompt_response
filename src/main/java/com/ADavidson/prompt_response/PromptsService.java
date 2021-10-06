@@ -16,4 +16,8 @@ public class PromptsService {
     public List<Prompt> getPrompts() {
         return promptsRepo.findAll();
     }
+
+    public UserResponse saveResponse(UserResponse response) {
+        return null;
+    }
 }
