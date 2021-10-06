@@ -15,6 +15,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @WebMvcTest(PromptsController.class)
@@ -37,20 +38,18 @@ public class PromptsControllerTests {
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/prompts"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.prompts", hasSize(2)));
+                .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)));
     }
     // TODO: getPrompts when the none exist
 
     @Test
     void saveResponse_givenValidRequestBody_returnResponse() throws Exception {
         UserResponse userResponse = new UserResponse(1, 3, "this is a response");
-        when(promptsService.saveResponse(any(UserResponse.class)))
-                .thenReturn(userResponse);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/responses")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(userResponse)))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.response").hasJsonPath());
+                .andExpect(MockMvcResultMatchers.status().isOk());
+        verify(promptsService).saveResponse(userResponse);
     }
 }

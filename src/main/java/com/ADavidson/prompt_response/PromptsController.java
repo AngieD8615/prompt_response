@@ -18,8 +18,8 @@ public class PromptsController {
     }
 
     @PostMapping("/api/responses")
-    public UserResponse saveResponse(@RequestBody UserResponse response) {
-        return promptsService.saveResponse(response);
+    public void saveResponse(@RequestBody UserResponse response) {
+        promptsService.saveResponse(response);
     }
 
 }
