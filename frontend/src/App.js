@@ -1,5 +1,6 @@
 import './App.css';
 import Prompt from './Prompt'
+import ResponseForm from "./ResponseForm";
 import {useEffect, useState} from "react";
 
 function App({axios}) {
@@ -27,19 +28,20 @@ function App({axios}) {
         }
     })
 
-    const renderData = () => {
+    const renderPrompt = () => {
         if (loadingFailed) {
             return <p>Failed to load data</p>
         } else if (isLoading) {
             return <p>Loading...</p>
         } else {
-            return <Prompt id={curPrompt} text={prompts[curPrompt].prompt} />
+            return <Prompt id={prompts[curPrompt].id} text={prompts[curPrompt].prompt} />
         }
     }
 
     return (
         <div>
-            {renderData()}
+            {renderPrompt()}
+            <ResponseForm curPromptId={prompts[curPrompt].id} />
         </div>
     );
 }
