@@ -1,39 +1,41 @@
 import {useState} from "react";
-import {useForm} from "react-hook-form"
-import axios from "axios";
 
-export default function ResponseForm({curPrompt}) {
-    const {register, handleSubmit} = useForm();
-    const [postComplete, setPostComplete] = useState(false)
-    const [postFailed, setPostFailed] = useState(false)
-    const onSubmit = data => {
-        data.prompt_id = curPrompt;
-        console.log(data);
-        axios.post('http://localhost:8080/api/responses', data)
-            .then(() => {
-                setPostComplete(true)
-            })
-            .cathc(() => {
-                setPostFailed(true)
-            })
+
+export default function ResponseForm ({ promptID, postResponse }) {
+    const [resSubSuc, setResSubSuc] = useState( false)
+    const [resSubRej, setResSubRej] = useState( false)
+    const [response, setResponse] = useState("");
+    const handleChange = (e) => {
+        setResponse(e.target.value)
     }
 
-    const alert = () => {
-        if (postComplete) {
-            return <alert>post complete</alert>
-        } else if (postFailed) {
-            return <alert>post failed</alert>
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const body = {
+            prompt_id: promptID,
+            response: response
         }
+        const result = postResponse(body)
+        result
+            .then(() => {
+                setResSubSuc(true)
+            })
+            .catch(() => {
+                setResSubRej(true)
+            })
     }
+
 
     return (
-        <div>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <input {...register("response", {required: true})} />
-                <input type={"submit"}/>
+        <>
+            <form onSubmit={(e) => handleSubmit(e)}>
+                <label>Enter your response here:
+                    <input type="text" name="response" onChange={(e) => {handleChange(e)}}/>
+                </label>
+                {response.length === 0 ? null : <button>Submit</button>}
+                {resSubSuc ? "response submitted" : null}
+                {resSubRej ? "response rejected" : null}
             </form>
-            {alert()}
-        </div>
+        </>
     )
-
 }

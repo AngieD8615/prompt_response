@@ -1,6 +1,8 @@
+import './index.css'
+
 export default function Prompt ({id, text}) {
     return (
-        <div>
+        <div className="prompt">
             {text}
         </div>
     )
