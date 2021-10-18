@@ -42,7 +42,7 @@ export default function App ({ axios }) {
             return (
                 <>
                     <Prompt id={id} text={prompt} />
-                    <ResponseForm promptID={id} postResponse={postResponse}/>
+                    <ResponseForm promptID={id} axios={axios} />
                 </>
             )
         }

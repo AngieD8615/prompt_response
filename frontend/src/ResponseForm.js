@@ -1,8 +1,13 @@
 import {useState} from "react";
 
-export default function ResponseForm ({ promptID, postResponse }) {
-    const [resSubSuc, setResSubSuc] = useState( false)
-    const [resSubRej, setResSubRej] = useState( false)
+const statuses = {
+    initial: "initial",
+    submitted: "submitted",
+    rejected: "rejected"
+};
+
+export default function ResponseForm ({ promptID, axios }) {
+    const [status, setStatus] = useState(statuses.initial);
     const [response, setResponse] = useState("");
     const handleChange = (e) => {
         setResponse(e.target.value)
@@ -14,16 +19,22 @@ export default function ResponseForm ({ promptID, postResponse }) {
             prompt_id: promptID,
             response: response
         }
-        const result = postResponse(body)
-        result
+        axios.post('http://localhost:8080/api/responses', body)
             .then(() => {
-                setResSubSuc(true)
+                setStatus(statuses.submitted)
             })
             .catch(() => {
-                setResSubRej(true)
+                setStatus(statuses.rejected)
             })
     }
 
+    const statusText = () => {
+        if (status === statuses.rejected) {
+            return "response rejected"
+        } else if (status === statuses.submitted) {
+            return "response submitted"
+        }
+    }
 
     return (
         <>
@@ -31,9 +42,8 @@ export default function ResponseForm ({ promptID, postResponse }) {
                 <label>Enter your response here:
                     <input type="text" name="response" onChange={(e) => {handleChange(e)}}/>
                 </label>
-                {response.length === 0 ? null : <button>Submit</button>}
-                {resSubSuc ? "response submitted" : null}
-                {resSubRej ? "response rejected" : null}
+                 <button disabled={response.length === 0}>Submit</button>
+                {statusText()}
             </form>
         </>
     )
