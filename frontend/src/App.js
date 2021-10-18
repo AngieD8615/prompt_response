@@ -7,7 +7,7 @@ export default function App ({ axios }) {
     const [prompts, setPrompts] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [loadingFailed, setLoadingFailed] = useState(false)
-    const curPrompt = 0;
+
 
     const getPrompts = () => {
         axios.get('http://localhost:8080/api/prompts')
@@ -38,11 +38,11 @@ export default function App ({ axios }) {
         } else if (isLoading) {
             return <p>Loading...</p>
         } else {
-            let promptID = prompts[curPrompt].id
+            const { id, prompt } = prompts[0]
             return (
                 <>
-                    <Prompt id={promptID} text={prompts[curPrompt].prompt} />
-                    <ResponseForm promptID={promptID} postResponse={postResponse}/>
+                    <Prompt id={id} text={prompt} />
+                    <ResponseForm promptID={id} postResponse={postResponse}/>
                 </>
             )
         }
