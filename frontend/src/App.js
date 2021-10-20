@@ -1,6 +1,5 @@
 import './App.css';
-import Prompt from './Prompt'
-import ResponseForm from './ResponseForm'
+import PromptContainer from "./PromptContainer";
 import {useEffect, useState} from "react";
 
 export default function App ({ axios }) {
@@ -41,8 +40,7 @@ export default function App ({ axios }) {
             const { id, prompt } = prompts[0]
             return (
                 <>
-                    <Prompt id={id} text={prompt} />
-                    <ResponseForm promptID={id} axios={axios} />
+                    <PromptContainer promptID={id} prompt={prompt} axios={axios} />
                 </>
             )
         }

@@ -1,26 +1,24 @@
 import {useState} from "react";
 
-const statuses = {
-    initial: "initial",
-    submitted: "submitted",
-    rejected: "rejected"
-};
 
-export default function ResponseForm ({ promptID, axios }) {
-    const [status, setStatus] = useState(statuses.initial);
-    const [response, setResponse] = useState("");
+
+export default function ResponseForm ({ axios, promptID, statuses, status, setStatus, response, setResponse }) {
+
     const handleChange = (e) => {
         setResponse(e.target.value)
     }
 
     const handleSubmit = (e) => {
+        console.log("in handle submit")
         e.preventDefault()
+        setStatus(statuses.processing)
         const body = {
             prompt_id: promptID,
             response: response
         }
         axios.post('http://localhost:8080/api/responses', body)
             .then(() => {
+                console.log("in axios then")
                 setStatus(statuses.submitted)
             })
             .catch(() => {
@@ -29,10 +27,10 @@ export default function ResponseForm ({ promptID, axios }) {
     }
 
     const statusText = () => {
-        if (status === statuses.rejected) {
+        if (status === statuses.submitted) {
+            return response
+        } else if (status === statuses.rejected) {
             return "response rejected"
-        } else if (status === statuses.submitted) {
-            return "response submitted"
         }
     }
 
@@ -42,7 +40,7 @@ export default function ResponseForm ({ promptID, axios }) {
                 <label>Enter your response here:
                     <input type="text" name="response" onChange={(e) => {handleChange(e)}}/>
                 </label>
-                 <button disabled={response.length === 0}>Submit</button>
+                 <button disabled={!response || status === statuses.processing}>Submit</button>
                 {statusText()}
             </form>
         </>
