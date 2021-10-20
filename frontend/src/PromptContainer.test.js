@@ -29,11 +29,9 @@ describe("when submitting a response", () => {
 
     test('Display user response when post succeeds', async function () {
         const resolvedPromise = Promise.resolve();
-        const axios = {
-            post: x => resolvedPromise
-        }
+        const axios = { post: x => resolvedPromise }
 
-        render(<PromptContainer axios={axios} promptID={1} prompt={"this is the prompt"}/>)
+        render(<PromptContainer axios={axios} promptID={1} prompt={"this is the prompt"} />)
         const responseInput = screen.getByLabelText('Enter your response here:',
             {selector: 'input[type="text"]'});
 
@@ -86,10 +84,8 @@ test("When response is successfully submitted, remove form from view ", async ()
 
     fireEvent.change(responseInput, {target: {value: 'this is my response'}})
 
-    console.log("in act before click")
     fireEvent.click(screen.getByRole('button'))
 
-    console.log("after resolve()", screen.findByText('Enter your response here:'))
     await waitForElementToBeRemoved(() => screen.queryByText('Enter your response here:'));
 
     // try {

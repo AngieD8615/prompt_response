@@ -11,36 +11,50 @@ const responseStatuses = {
 
 export default function PromptContainer ({ axios, promptID, prompt }) {
     const [responseStatus, setResponseStatus] = useState(responseStatuses.initial);
-    const [response, setResponse] = useState("");
+    const [userResp, setUserResp] = useState("")
 
-    // const onSubmit = resp => {
-    //
-    // };
-
-    const displayResponseItems = () => {
-        if (responseStatus === responseStatuses.submitted){
-            return response
-        } else {
-            // return (
-            //     <ResponseForm onSubmit={onSubmit} />
-            // )
+    const displayResponseForm = (resp = null) => {
+        if (responseStatus !== responseStatuses.submitted){
             return (
                 <ResponseForm
-                    promptID={promptID}
-                    axios={axios}
+                    onSubmit={onSubmit}
                     statuses={responseStatuses}
                     status={responseStatus}
-                    setStatus={setResponseStatus}
-                    response={response}
-                    setResponse={setResponse}
                 />
             )
         }
     }
+
+    const onSubmit = (e, resp) => {
+        e.preventDefault()
+        setResponseStatus(responseStatuses.processing)
+        const body = {
+            prompt_id: promptID,
+            response: resp
+        }
+        axios.post('http://localhost:8080/api/responses', body)
+            .then(() => {
+                setUserResp(resp)
+                setResponseStatus(responseStatuses.submitted)
+            })
+            .catch(() => {
+                setResponseStatus(responseStatuses.rejected)
+            })
+    };
+
+    const displayResponses = () => {
+        if (responseStatus === responseStatuses.submitted) {
+            return userResp
+        } else if (responseStatus === responseStatuses.rejected) {
+            return "response rejected"
+        }
+    }
+
     return (
         <>
             <Prompt id={promptID} text={prompt} />
-            {displayResponseItems()}
+            {displayResponseForm()}
+            {displayResponses()}
         </>
     )
 }
