@@ -1,14 +1,8 @@
 import {useEffect, useState} from "react";
 import Prompt from "./Prompt";
 import ResponseForm from "./ResponseForm";
+import {responseStatuses} from "./responseStatuses";
 
-const responseStatuses = {
-    initial: "initial",
-    processing: "processing",
-    submitted: "submitted",
-    rejected: "rejected",
-
-};
 
 export default function PromptContainer ({ axios, promptID, prompt }) {
     const [responseStatus, setResponseStatus] = useState(responseStatuses.initial);
@@ -19,18 +13,16 @@ export default function PromptContainer ({ axios, promptID, prompt }) {
             return (
                 <ResponseForm
                     onSubmit={onSubmit}
-                    statuses={responseStatuses}
                     status={responseStatus}
                 />
             )
         }
     }
 
-    const onSubmit = (e, resp) => {
-        e.preventDefault()
+    const onSubmit = (resp) => {
         setResponseStatus(responseStatuses.processing)
         const body = {
-            prompt_id: promptID,
+            promptId: promptID,
             response: resp
         }
         axios.post('http://localhost:8080/api/responses', body)
