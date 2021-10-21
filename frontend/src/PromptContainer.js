@@ -6,14 +6,15 @@ const responseStatuses = {
     initial: "initial",
     processing: "processing",
     submitted: "submitted",
-    rejected: "rejected"
+    rejected: "rejected",
+
 };
 
 export default function PromptContainer ({ axios, promptID, prompt }) {
     const [responseStatus, setResponseStatus] = useState(responseStatuses.initial);
     const [userResp, setUserResp] = useState("")
 
-    const displayResponseForm = (resp = null) => {
+    const displayResponseForm = () => {
         if (responseStatus !== responseStatuses.submitted){
             return (
                 <ResponseForm

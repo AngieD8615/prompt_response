@@ -16,7 +16,6 @@ export default function ResponseForm ({ onSubmit, statuses, status }) {
                     <input type="text" name="response" onChange={(e) => {handleChange(e)}}/>
                 </label>
                  <button disabled={!response || status === statuses.processing}>Submit</button>
-
             </form>
         </>
     )
