@@ -34,8 +34,6 @@ http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibas
                 referencedTableName="prompts"
                 referencedColumnNames="id"
         />
-    </changeSet>
-    <changeSet id="20221005-1" author="ADavidson">
         <addAutoIncrement tableName="responses" columnName="id" columnDataType="INT" startWith="1" incrementBy="1"/>
     </changeSet>
 </databaseChangeLog>

@@ -23,7 +23,7 @@ describe("when submitting a response", () => {
 
         expect(axios.post)
             .toHaveBeenCalledWith('http://localhost:8080/api/responses',
-                {"prompt_id": 1, "response": "this is my response"})
+                {"promptId": 1, "response": "this is my response"})
 
     })
 

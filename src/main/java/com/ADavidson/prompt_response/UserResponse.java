@@ -1,6 +1,7 @@
 package com.ADavidson.prompt_response;
 
 import javax.annotation.processing.Generated;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -11,14 +12,14 @@ import java.util.Objects;
 public class UserResponse {
     @Id
     int id;
-    int prompt_id;
+    int promptId;
     String response;
 
     public UserResponse() {}
 
-    public UserResponse(int id, int prompt_id, String response) {
+    public UserResponse(int id, int promptId, String response) {
         this.id = id;
-        this.prompt_id = prompt_id;
+        this.promptId = promptId;
         this.response = response;
     }
 
@@ -30,12 +31,12 @@ public class UserResponse {
         this.id = id;
     }
 
-    public int getPrompt_id() {
-        return prompt_id;
+    public int getPromptId() {
+        return promptId;
     }
 
-    public void setPrompt_id(int prompt_id) {
-        this.prompt_id = prompt_id;
+    public void setPromptId(int promptId) {
+        this.promptId = promptId;
     }
 
     public String getResponse() {
@@ -50,7 +51,7 @@ public class UserResponse {
     public String toString() {
         return "UserResponse{" +
                 "id=" + id +
-                ", prompt_id=" + prompt_id +
+                ", promptId=" + promptId +
                 ", response='" + response + '\'' +
                 '}';
     }
@@ -60,11 +61,11 @@ public class UserResponse {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserResponse that = (UserResponse) o;
-        return id == that.id && prompt_id == that.prompt_id && Objects.equals(response, that.response);
+        return id == that.id && promptId == that.promptId && Objects.equals(response, that.response);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, prompt_id, response);
+        return Objects.hash(id, promptId, response);
     }
 }

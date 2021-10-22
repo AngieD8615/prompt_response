@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -51,5 +51,18 @@ class PromptsServiceTests {
         promptsService.saveResponse(response);
 
         verify(responseRepo).save(response);
+    }
+
+    @Test
+    void getResponsesForPrompt () {
+        List<UserResponse> userResponses = new ArrayList<>();
+        userResponses.add(new UserResponse(1, 1, "response 1"));
+        userResponses.add(new UserResponse(2, 1, "response 2"));
+        userResponses.add(new UserResponse(3, 1, "response 3"));
+
+        when(responseRepo.findAllByPromptId(anyInt())).thenReturn(userResponses);
+
+        List<UserResponse> responseList = promptsService.getResponses(1);
+        assertThat(responseList).isEqualTo(userResponses);
     }
 }

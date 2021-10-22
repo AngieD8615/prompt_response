@@ -37,7 +37,7 @@ export default function PromptContainer ({ axios, promptID, prompt }) {
 
     const displayResponses = () => {
         if (responseStatus === responseStatuses.submitted) {
-            return userResp
+            return <ResponseContainer userResponse={userResp} />
         } else if (responseStatus === responseStatuses.rejected) {
             return "response rejected"
         }

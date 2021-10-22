@@ -1,6 +1,7 @@
 package com.ADavidson.prompt_response;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import liquibase.pro.packaged.U;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -15,8 +16,11 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(PromptsController.class)
 public class PromptsControllerTests {
@@ -37,8 +41,8 @@ public class PromptsControllerTests {
         when(promptsService.getPrompts()).thenReturn(promptList);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/prompts"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)));
     }
     // TODO: getPrompts when the none exist
 
@@ -49,7 +53,21 @@ public class PromptsControllerTests {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/responses")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(userResponse)))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(status().isOk());
         verify(promptsService).saveResponse(userResponse);
     }
+
+    @Test
+    void getListOfResponses_givenValidPromptID () throws Exception {
+        List<UserResponse> userResponses = new ArrayList<>();
+        userResponses.add(new UserResponse(1, 1, "response 1"));
+        userResponses.add(new UserResponse(2, 1, "response 2"));
+        userResponses.add(new UserResponse(3, 1, "response 3"));
+
+        when(promptsService.getResponses(anyInt())).thenReturn(userResponses);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/prompts/1/responses"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(3)));
+    }
+
 }

@@ -23,4 +23,8 @@ public class PromptsService {
     public void saveResponse(UserResponse response) {
         responseRepo.save(response);
     }
+
+    public List<UserResponse> getResponses(int prompt_id) {
+        return responseRepo.findAllByPromptId(prompt_id);
+    }
 }

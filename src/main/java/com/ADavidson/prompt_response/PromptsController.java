@@ -19,8 +19,13 @@ public class PromptsController {
 
     @PostMapping("/api/responses")
     public void saveResponse(@RequestBody UserResponse response) throws InterruptedException {
-        Thread.sleep(3000);
+//        Thread.sleep(3000);
         promptsService.saveResponse(response);
+    }
+
+    @GetMapping("/api/prompts/{id}/responses")
+    public  List<UserResponse> getResponsesForPrompt(@PathVariable("id") int prompt_id) {
+        return promptsService.getResponses(prompt_id);
     }
 
 }
