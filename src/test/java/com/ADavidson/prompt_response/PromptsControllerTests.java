@@ -45,6 +45,8 @@ public class PromptsControllerTests {
                 .andExpect(jsonPath("$", hasSize(2)));
     }
     // TODO: getPrompts when the none exist
+    // TODO: saveResponse with invalid request body
+    // TODO: handle get responses with invalid promptId
 
     @Test
     void saveResponse_givenValidRequestBody_returnResponse() throws Exception {
@@ -70,4 +72,8 @@ public class PromptsControllerTests {
                 .andExpect(jsonPath("$", hasSize(3)));
     }
 
+    @Test
+    void saveResponse_givenValidRequestBody_returnResponseWithUpDownVotes () {
+
+    }
 }

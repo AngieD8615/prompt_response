@@ -1,12 +1,13 @@
-import {useEffect, useState} from "react";
+import { useState } from "react";
 import Prompt from "./Prompt";
 import ResponseForm from "./ResponseForm";
-import {responseStatuses} from "./responseStatuses";
+import ResponseContainer from "./ResponseContainer";
+import { responseStatuses } from "./responseStatuses";
 
 
 export default function PromptContainer ({ axios, promptID, prompt }) {
     const [responseStatus, setResponseStatus] = useState(responseStatuses.initial);
-    const [userResp, setUserResp] = useState("")
+    const [userResp, setUserResp] = useState('')
 
     const displayResponseForm = () => {
         if (responseStatus !== responseStatuses.submitted){
@@ -37,7 +38,7 @@ export default function PromptContainer ({ axios, promptID, prompt }) {
 
     const displayResponses = () => {
         if (responseStatus === responseStatuses.submitted) {
-            return <ResponseContainer userResponse={userResp} />
+            return <ResponseContainer axios={axios} userResponse={userResp} promptId={promptID} />
         } else if (responseStatus === responseStatuses.rejected) {
             return "response rejected"
         }

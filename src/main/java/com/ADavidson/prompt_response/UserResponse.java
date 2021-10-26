@@ -14,8 +14,11 @@ public class UserResponse {
     int id;
     int promptId;
     String response;
+    int upVotes = 0;
+    int downVotes = 0;
 
-    public UserResponse() {}
+    public UserResponse() {
+    }
 
     public UserResponse(int id, int promptId, String response) {
         this.id = id;
@@ -46,6 +49,14 @@ public class UserResponse {
     public void setResponse(String response) {
         this.response = response;
     }
+
+    public int getUpVotes() { return upVotes; }
+
+    public void setUpVotes(int upVotes) { this.upVotes = upVotes; }
+
+    public int getDownVotes() { return downVotes; }
+
+    public void setDownVotes(int downVotes) { this.downVotes = downVotes; }
 
     @Override
     public String toString() {
