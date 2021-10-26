@@ -1,12 +1,12 @@
 import './App.css';
-import Prompt from './Prompt'
+import PromptContainer from "./PromptContainer";
 import {useEffect, useState} from "react";
 
-function App({axios}) {
+export default function App ({ axios }) {
     const [prompts, setPrompts] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [loadingFailed, setLoadingFailed] = useState(false)
-    const curPrompt = 0;
+
 
     const getPrompts = () => {
         axios.get('http://localhost:8080/api/prompts')
@@ -21,27 +21,36 @@ function App({axios}) {
             })
     }
 
+    const postResponse = (body) => {
+        return axios.post('http://localhost:8080/api/responses', body)
+    }
+
     useEffect(() => {
         if (isLoading) {
             getPrompts();
         }
     })
 
-    const renderData = () => {
+    const renderPrompt = () => {
         if (loadingFailed) {
             return <p>Failed to load data</p>
         } else if (isLoading) {
             return <p>Loading...</p>
         } else {
-            return <Prompt id={curPrompt} text={prompts[curPrompt].prompt} />
+            const { id, prompt } = prompts[0]
+            return (
+                <>
+                    <PromptContainer promptID={id} prompt={prompt} axios={axios} />
+                </>
+            )
         }
+
     }
 
     return (
         <div>
-            {renderData()}
+            {renderPrompt()}
         </div>
     );
 }
 
-export default App;

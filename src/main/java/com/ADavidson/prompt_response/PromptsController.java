@@ -1,8 +1,7 @@
 package com.ADavidson.prompt_response;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.apache.catalina.connector.Response;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,6 +15,17 @@ public class PromptsController {
     @GetMapping("/api/prompts")
     public List<Prompt> getPrompts() {
         return promptsService.getPrompts();
+    }
+
+    @PostMapping("/api/responses")
+    public void saveResponse(@RequestBody UserResponse response) throws InterruptedException {
+//        Thread.sleep(3000);
+        promptsService.saveResponse(response);
+    }
+
+    @GetMapping("/api/prompts/{id}/responses")
+    public  List<UserResponse> getResponsesForPrompt(@PathVariable("id") int prompt_id) {
+        return promptsService.getResponses(prompt_id);
     }
 
 }

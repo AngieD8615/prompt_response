@@ -34,8 +34,16 @@ http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibas
                 referencedTableName="prompts"
                 referencedColumnNames="id"
         />
-    </changeSet>
-    <changeSet id="20221005-1" author="ADavidson">
         <addAutoIncrement tableName="responses" columnName="id" columnDataType="INT" startWith="1" incrementBy="1"/>
+    </changeSet>
+    <changeSet id="20221025" author="ADavidson">
+        <addColumn tableName="responses">
+            <column name="up_votes" type="INT">
+                <constraints nullable="false" />
+            </column>
+            <column name="down_votes" type="INT">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
     </changeSet>
 </databaseChangeLog>
