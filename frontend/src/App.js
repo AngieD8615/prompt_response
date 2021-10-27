@@ -1,6 +1,7 @@
 import './App.css';
 import PromptContainer from "./PromptContainer";
 import {useEffect, useState} from "react";
+import {serverURL} from "./serverURL";
 
 export default function App ({ axios }) {
     const [prompts, setPrompts] = useState([])
@@ -9,7 +10,7 @@ export default function App ({ axios }) {
 
 
     const getPrompts = () => {
-        axios.get('http://localhost:8080/api/prompts')
+        axios.get(serverURL + '/prompts')
             .then((response) => {
                 setPrompts(response.data)
             })
@@ -19,10 +20,6 @@ export default function App ({ axios }) {
             .catch(() => {
                 setLoadingFailed(true)
             })
-    }
-
-    const postResponse = (body) => {
-        return axios.post('http://localhost:8080/api/responses', body)
     }
 
     useEffect(() => {

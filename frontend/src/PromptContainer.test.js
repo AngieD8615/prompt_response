@@ -1,6 +1,7 @@
 import {fireEvent, render, screen, waitForElementToBeRemoved} from '@testing-library/react';
 import {act} from 'react-dom/test-utils';
 import PromptContainer from './PromptContainer';
+import {serverURL} from "./serverURL";
 
 describe("when submitting a response", () => {
 
@@ -22,7 +23,7 @@ describe("when submitting a response", () => {
         fireEvent.click(btn)
 
         expect(axios.post)
-            .toHaveBeenCalledWith('http://localhost:8080/api/responses',
+            .toHaveBeenCalledWith(serverURL + '/responses',
                 {"promptId": 1, "response": "this is my response"})
 
     })

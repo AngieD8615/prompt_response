@@ -19,7 +19,6 @@ public class PromptsController {
 
     @PostMapping("/api/responses")
     public void saveResponse(@RequestBody UserResponse response) throws InterruptedException {
-//        Thread.sleep(3000);
         promptsService.saveResponse(response);
     }
 

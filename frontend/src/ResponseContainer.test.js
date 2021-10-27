@@ -1,8 +1,6 @@
-// TODO: loading state appears
-// TODO: is the request fails an error message appears
-
 import {fireEvent, render, screen} from "@testing-library/react";
 import ResponseContainer from "./ResponseContainer";
+import {serverURL} from "./serverURL";
 
 test('Display current user\'s response',  () => {
 
@@ -28,7 +26,7 @@ describe("when requesting all responses from server", () => {
         fireEvent.click(screen.getByRole('button'))
 
         expect(axios.get)
-            .toHaveBeenCalledWith('http://localhost:8080/api/prompts/1/responses')
+            .toHaveBeenCalledWith(serverURL + '/prompts/1/responses')
     })
 
     test("should display responses when get request succeeds", async() => {

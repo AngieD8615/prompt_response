@@ -1,5 +1,6 @@
 import {fireEvent, getByLabelText, render, screen } from '@testing-library/react';
 import App from './App';
+import {serverURL} from "./serverURL";
 
 const dummyPromise = new Promise(()=> {})
 
@@ -7,7 +8,7 @@ test('Requests the list of prompts from the server', () => {
     const axios = {get: jest.fn(x => dummyPromise)};
     render(<App axios={axios} />);
     expect(axios.get)
-        .toHaveBeenCalledWith('http://localhost:8080/api/prompts');
+        .toHaveBeenCalledWith(serverURL + '/prompts');
 });
 
 describe('While prompts are Loading', () => {

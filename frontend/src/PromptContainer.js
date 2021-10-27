@@ -3,7 +3,7 @@ import Prompt from "./Prompt";
 import ResponseForm from "./ResponseForm";
 import ResponseContainer from "./ResponseContainer";
 import { responseStatuses } from "./responseStatuses";
-
+import {serverURL} from "./serverURL";
 
 export default function PromptContainer ({ axios, promptID, prompt }) {
     const [responseStatus, setResponseStatus] = useState(responseStatuses.initial);
@@ -26,7 +26,7 @@ export default function PromptContainer ({ axios, promptID, prompt }) {
             promptId: promptID,
             response: resp
         }
-        axios.post('http://localhost:8080/api/responses', body)
+        axios.post(serverURL + '/responses', body)
             .then(() => {
                 setUserResp(resp)
                 setResponseStatus(responseStatuses.submitted)

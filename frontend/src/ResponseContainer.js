@@ -1,5 +1,7 @@
 import {useState} from "react";
 import Response from "./Response";
+import {serverURL} from "./serverURL";
+
 
 const getResponsesStatus = {
     initial: "initial",
@@ -13,7 +15,7 @@ export default function ResponseContainer({axios, userResponse, promptId}) {
     const [getResponseStatus, setGetResponseStatus] = useState(getResponsesStatus.initial)
     const getResponses = (id) => {
         setGetResponseStatus(getResponsesStatus.processing)
-        axios.get("http://localhost:8080/api/prompts/" + id + "/responses")
+        axios.get(serverURL + "/prompts/" + id + "/responses")
             .then((res) => {
                 setResponses(res.data)
                 setGetResponseStatus(getResponsesStatus.succeeded)
