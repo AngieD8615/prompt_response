@@ -26,6 +26,14 @@ public class UserResponse {
         this.response = response;
     }
 
+    public void incrementUpVote() {
+        upVotes += 1;
+    }
+
+    public void incrementDownVote() {
+        downVotes += 1;
+    }
+
     public int getId() {
         return id;
     }

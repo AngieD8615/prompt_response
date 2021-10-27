@@ -65,4 +65,28 @@ class PromptsServiceTests {
         List<UserResponse> responseList = promptsService.getResponses(1);
         assertThat(responseList).isEqualTo(userResponses);
     }
+
+    @Test
+    void incrementUpVote () {
+        UserResponse dummyResponse =
+                new UserResponse(1, 2, "here's a response");
+        when(responseRepo.findByPromptIdAndId(anyInt(),anyInt())).thenReturn(dummyResponse);
+
+        promptsService.incrementUpVote(2,1);
+
+        verify(responseRepo).findByPromptIdAndId(2,1);
+        verify(responseRepo).save(any(UserResponse.class));
+    }
+
+    @Test
+    void incrementDownVote () {
+        UserResponse dummyResponse =
+                new UserResponse(1, 2, "here's a response");
+        when(responseRepo.findByPromptIdAndId(anyInt(),anyInt())).thenReturn(dummyResponse);
+
+        promptsService.incrementDownVote(2,1);
+
+        verify(responseRepo).findByPromptIdAndId(2,1);
+        verify(responseRepo).save(any(UserResponse.class));
+    }
 }

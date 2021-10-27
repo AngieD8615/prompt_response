@@ -33,7 +33,7 @@ export default function ResponseContainer({axios, userResponse, promptId}) {
             return "loading"
         } else if (getResponseStatus === getResponsesStatus.succeeded) {
             return responses
-                .map(response => <Response resp={response} key={response.id} />)
+                .map(response => <Response axios={axios} resp={response} key={response.id} />)
         } else if (getResponseStatus === getResponsesStatus.rejected) {
             return "error getting responses"
         }

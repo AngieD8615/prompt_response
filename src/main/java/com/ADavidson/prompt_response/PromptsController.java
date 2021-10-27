@@ -27,4 +27,14 @@ public class PromptsController {
         return promptsService.getResponses(prompt_id);
     }
 
+    @PatchMapping("/api/prompts/{promptId}/responses/{respId}/up")
+    public void incrementUpVote (@PathVariable("promptId") int prompt_id,
+                                 @PathVariable("respId") int resp_id) {
+        promptsService.incrementUpVote(prompt_id, resp_id);
+    }
+    @PatchMapping("/api/prompts/{promptId}/responses/{respId}/down")
+    public void incrementDownVote (@PathVariable("promptId") int prompt_id,
+                                 @PathVariable("respId") int resp_id) {
+        promptsService.incrementDownVote(prompt_id, resp_id);
+    }
 }

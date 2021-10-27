@@ -27,4 +27,16 @@ public class PromptsService {
     public List<UserResponse> getResponses(int prompt_id) {
         return responseRepo.findAllByPromptId(prompt_id);
     }
+
+    public void incrementUpVote(int prompt_id, int resp_id) {
+        UserResponse response = responseRepo.findByPromptIdAndId(prompt_id, resp_id);
+        response.incrementUpVote();
+        responseRepo.save(response);
+    }
+
+    public void incrementDownVote(int prompt_id, int resp_id) {
+        UserResponse response = responseRepo.findByPromptIdAndId(prompt_id, resp_id);
+        response.incrementDownVote();
+        responseRepo.save(response);
+    }
 }

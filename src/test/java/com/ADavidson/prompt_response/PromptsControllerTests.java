@@ -41,19 +41,20 @@ public class PromptsControllerTests {
         promptList.add(new Prompt(2, "hello world... again"));
         when(promptsService.getPrompts()).thenReturn(promptList);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/prompts"))
+        mockMvc.perform(get("/api/prompts"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)));
     }
     // TODO: getPrompts when the none exist
     // TODO: saveResponse with invalid request body
     // TODO: handle get responses with invalid promptId
+    // TODO: handle up/down vote with invalid responseId
 
     @Test
     void saveResponse_givenValidRequestBody_returnResponse() throws Exception {
         UserResponse userResponse = new UserResponse(1, 3, "this is a response");
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/responses")
+        mockMvc.perform(post("/api/responses")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(userResponse)))
                 .andExpect(status().isOk());
@@ -68,13 +69,21 @@ public class PromptsControllerTests {
         userResponses.add(new UserResponse(3, 1, "response 3"));
 
         when(promptsService.getResponses(anyInt())).thenReturn(userResponses);
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/prompts/1/responses"))
+        mockMvc.perform(get("/api/prompts/1/responses"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)));
     }
 
     @Test
-    void saveResponse_givenValidRequestBody_returnResponseWithUpDownVotes () {
-
+    void incrementUpVote () throws Exception {
+        mockMvc.perform(patch("/api/prompts/1/responses/1/up"))
+                .andExpect(status().isOk());
+        verify(promptsService).incrementUpVote(1,1);
+    }
+    @Test
+    void incrementDownVote () throws Exception {
+        mockMvc.perform(patch("/api/prompts/1/responses/1/down"))
+                .andExpect(status().isOk());
+        verify(promptsService).incrementDownVote(1,1);
     }
 }

@@ -1,0 +1,21 @@
+.response {
+    padding: .5em;
+    margin: .5em;
+    background: ghostwhite;
+    border: lightgrey 1px solid;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.response-text {
+    display: flex;
+    align-content: flex-start;
+    align-items: center;
+}
+
+.response-buttons {
+    display: flex;
+    align-content: flex-end;
+    align-items: center;
+}
