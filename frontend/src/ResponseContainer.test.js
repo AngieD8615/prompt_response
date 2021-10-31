@@ -3,9 +3,7 @@ import ResponseContainer from "./ResponseContainer";
 import {serverURL} from "./serverURL";
 
 test('Display current user\'s response',  () => {
-
     render(<ResponseContainer userResponse={"My Response..."} promptId={1} />)
-
     screen.getByText("My Response...")
 })
 
@@ -13,7 +11,6 @@ test("When user post request succeeds the view responses " +
             "button should appear", () => {
 
     render(<ResponseContainer userResponse={"My Response..."} promptId={1} />)
-
     screen.getByRole('button', {name:'View Responses'})
 })
 describe("when requesting all responses from server", () => {
@@ -21,10 +18,9 @@ describe("when requesting all responses from server", () => {
         const dummyPromise = new Promise(() => {})
         const axios = {get: jest.fn(x => dummyPromise)}
 
-        render(<ResponseContainer userResponse={"My Response..."} promptId={1} axios={axios}/>)
+        render(<ResponseContainer axios={axios} userResponse={"My Response..."} promptId={1} />)
 
         fireEvent.click(screen.getByRole('button'))
-
         expect(axios.get)
             .toHaveBeenCalledWith(serverURL + '/prompts/1/responses')
     })
@@ -48,7 +44,6 @@ describe("when requesting all responses from server", () => {
             },
         ]
         const resolvedPromise = Promise.resolve({data: dummyData})
-
         const axios = {get: x => resolvedPromise}
 
         render(<ResponseContainer axios={axios} userResponse={"My Response..."} promptId={1} />)
