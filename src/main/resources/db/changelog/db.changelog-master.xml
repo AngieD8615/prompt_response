@@ -17,7 +17,7 @@ http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibas
         <addAutoIncrement tableName="prompts" columnName="id" columnDataType="INT" startWith="1" incrementBy="1" />
         <createSequence sequenceName="hibernate_sequence" incrementBy="1" startValue="1" />
     </changeSet>
-    <changeSet id="20221005" author="ADavidson">
+    <changeSet id="20211005" author="ADavidson">
         <createTable tableName="responses">
             <column name="id" type="INT">
                 <constraints primaryKey="true" primaryKeyName="response_id_pk" />
@@ -36,7 +36,7 @@ http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibas
         />
         <addAutoIncrement tableName="responses" columnName="id" columnDataType="INT" startWith="1" incrementBy="1"/>
     </changeSet>
-    <changeSet id="20221025" author="ADavidson">
+    <changeSet id="20211025" author="ADavidson">
         <addColumn tableName="responses">
             <column name="up_votes" type="INT">
                 <constraints nullable="false" />
@@ -45,5 +45,27 @@ http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibas
                 <constraints nullable="false" />
             </column>
         </addColumn>
+    </changeSet>
+    <changeSet id="20211209" author="ADavidson">
+        <createTable tableName="users">
+            <column name="user_id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="user_id_pk" />
+            </column>
+            <column name="username" type="varchar(45)">
+                <constraints nullable="false" notNullConstraintName="password_nn" />
+            </column>
+            <column name="password" type="varchar(64)">
+                <constraints nullable="false" notNullConstraintName="password_nn" />
+            </column>
+            <column name="role" type="varchar(45)">
+                <constraints nullable="false" notNullConstraintName="role_nn" />
+            </column>
+            <column name="enabled" type="tinyint">
+                <constraints nullable="false" notNullConstraintName="enabled_nn" />
+            </column>
+        </createTable>
+        <addAutoIncrement tableName="users" columnName="user_id" columnDataType="INT" startWith="1" incrementBy="1"/>
+        <addDefaultValue tableName="users" columnName="role" defaultValue="ROLE_LEARNER"/>
+        <addDefaultValue tableName="users" columnName="enabled" defaultValue="1"/>
     </changeSet>
 </databaseChangeLog>
