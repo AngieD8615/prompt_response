@@ -6,6 +6,7 @@ import lombok.ToString;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.Objects;
 
 @Entity
@@ -16,7 +17,10 @@ public class User {
     private String username;
     private @JsonIgnore String password;
     private Role role;
+    // enabled has the value of true = 1 or false = 0
     private int enabled;
+
+//    private ArrayList<UserResponse> userResponses = new ArrayList<UserResponse>();
 
     public User() {}
 
@@ -67,6 +71,14 @@ public class User {
     public void setEnabled(int enabled) {
         this.enabled = enabled;
     }
+
+//    public ArrayList getUserResponses() {
+//        return userResponses;
+//    }
+//
+//    public void setUserResponses(ArrayList userResponses) {
+//        this.userResponses = userResponses;
+//    }
 
     @Override
     public boolean equals(Object o) {

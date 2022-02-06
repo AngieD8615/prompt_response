@@ -33,7 +33,10 @@ export default function App ({ axios }) {
             return <p>Failed to load data</p>
         } else if (isLoading) {
             return <p>Loading...</p>
+        } else if (prompts.length === 0) {
+            return <p>No prompts available</p>
         } else {
+            let curPrompt = Math.floor(Math.random() * prompts.length)
             const { id, prompt } = prompts[0]
             return (
                 <>
@@ -41,7 +44,6 @@ export default function App ({ axios }) {
                 </>
             )
         }
-
     }
 
     return (

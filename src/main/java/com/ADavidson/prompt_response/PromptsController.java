@@ -12,6 +12,10 @@ public class PromptsController {
         this.promptsService = promptsService;
     }
 
+    @GetMapping("/login")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public void login() {}
+
     @GetMapping("/api/prompts")
     public List<Prompt> getPrompts() {
         return promptsService.getPrompts();
